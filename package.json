@@ -1,0 +1,29 @@
+{
+  "name": "stripe-express-test",
+  "version": "1.0.0",
+  "description": "Test environment for Stripe Express",
+  "main": "app.js",
+  "scripts": {
+    "serve": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asitwala/stripe-express-test.git"
+  },
+  "keywords": [
+    "stripe"
+  ],
+  "author": "Amy Sitwala",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asitwala/stripe-express-test/issues"
+  },
+  "homepage": "https://github.com/asitwala/stripe-express-test#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.1",
+    "stripe": "^8.67.0"
+  }
+}
