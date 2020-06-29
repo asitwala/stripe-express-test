@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-  Testing!
+<div class="app-container-75">
+  <h1>Welcome to Fisher Direct!</h1>
+  <h4>Let's get you onboarded!</h4>
+  <form action="/onboarding/setup" method="GET">
+    <button type="submit">
+      Get Started
+      <i class="fas fa-arrow-right"></i>
+    </button>
+  </form>
 </div>
 
 {% endblock %}

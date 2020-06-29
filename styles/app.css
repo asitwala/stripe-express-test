@@ -16,3 +16,19 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   line-height: 1.5em;
 }
+
+button {
+  background-color: #33678F;
+  color: white;
+  border: 0px !important;
+  border-radius: 2px;
+  padding: 6px 12px;
+  font-size: 16px !important;
+  cursor: pointer !important;
+  outline: none !important;
+}
+
+button i.fas {
+  margin-left: 4px;
+  font-size: 14px !important;
+}
