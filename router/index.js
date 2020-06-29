@@ -5,18 +5,19 @@ const querystring = require('querystring');
 const { GoogleSpreadsheet } = require('google-spreadsheet');
 var stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
-// spreadsheet key is the long id in the sheets URL
-const doc = new GoogleSpreadsheet('1A65pgQyXCGh0n8Alp2R9rJirEQb7jFThB7I_amXl6PY');
+// Spreadsheet key is the long id in the sheets URL
+const doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
 
-// const STRIPE_API = require('../api/stripe-functions');
 var router = express.Router();
 
+/* HOME */
 router.get('/', async (req, res) => {
   res.render('onboarding.html');
 });
 
+/* ONBOARDING */
+// Reference: https://github.com/stripe/stripe-connect-rocketrides/blob/master/server/routes/pilots/stripe.js
 router.get('/onboarding/setup', async (req, res) => {
-  // Test client ID: ca_HYI7b0d1kneMHXpkggxRtkwrX1f5EdlB
   await doc.useServiceAccountAuth({
     client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     private_key: process.env.GOOGLE_PRIVATE_KEY,
@@ -26,12 +27,6 @@ router.get('/onboarding/setup', async (req, res) => {
 
   const sheet = doc.sheetsByIndex[0];
   const newRow = await sheet.addRow({ FV_Name: req.query.vessel, FV_User_Email: req.query.email });
-
-  // // Reference: https://github.com/stripe/stripe-connect-rocketrides/blob/master/server/routes/pilots/stripe.js
-  // // Generate a random string as `state` to protect from CSRF and include it in the session
-  // req.session.state = Math.random()
-  //   .toString(36)
-  //   .slice(2);
 
   req.session.state = req.query.email;
 
@@ -48,6 +43,7 @@ router.get('/onboarding/setup', async (req, res) => {
   );
 });
 
+/* ONBOARDING COMPLETE */
 router.get('/onboarding/complete', async (req, res) => {
    // Check the `state` we got back equals the one we generated before proceeding (to protect from CSRF)
    if (req.session.state != req.query.state) {
@@ -81,6 +77,5 @@ router.get('/onboarding/complete', async (req, res) => {
 
   res.render('onboardingComplete.html');
 });
-
 
 module.exports = router;
